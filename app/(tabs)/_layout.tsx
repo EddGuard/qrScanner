@@ -17,9 +17,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: 'Login',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+            <TabBarIcon name={focused ? "log-in" : "log-in-outline"} color={color} />
           ),
         }}
       />
@@ -29,6 +29,15 @@ export default function TabLayout() {
           title: 'Explore',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="camera"
+        options={{
+          title: 'Scan QR Code',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? "barcode" : "barcode-outline"} color={color} />
           ),
         }}
       />
