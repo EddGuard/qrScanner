@@ -1,6 +1,6 @@
 import { Children, createContext, useContext, useEffect, useState } from "react";
 import axios from 'axios';
-import * as SecureStore from'expo-secure-store';
+import * as SecureStore from 'expo-secure-store';
 
 interface AuthProps {
     authState?: { token:string | null; authenticated:boolean | null };
@@ -10,7 +10,7 @@ interface AuthProps {
 }
 
 const TOKEN_KEY = 'my-jwt';
-export const API_URL = 'http://localhost:8080/api';
+export const API_URL = 'http://192.168.1.45:8000/api';
 const AuthContext = createContext<AuthProps>({});
 
 export const useAuth = () => {
@@ -67,7 +67,6 @@ export const AuthProvider = ({children}: any) => {
             return result;
         } catch (e) {
             return { error: true, msg: (e as any).response.data.msg };
-            
         }
     };
 

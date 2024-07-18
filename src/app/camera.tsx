@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { CameraView, Camera } from "expo-camera";
+import * as SplashScreen from 'expo-splash-screen';
 
-export default function App() {
+export default function CameraScreen() {
   const [hasPermission, setHasPermission]: [hasPermission:any, setHasPermission:any] = useState(null);
   const [scanned, setScanned] = useState(false);
 
@@ -11,7 +12,9 @@ export default function App() {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
     };
-
+    const splashLoad = async () => await SplashScreen.hideAsync();
+        
+    splashLoad();
     getCameraPermissions();
   }, []);
 

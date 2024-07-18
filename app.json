@@ -4,11 +4,11 @@
     "slug": "qrScanner",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/bootsplash.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/bootsplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
