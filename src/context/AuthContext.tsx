@@ -1,16 +1,16 @@
 import { Children, createContext, useContext, useEffect, useState } from "react";
 import axios from 'axios';
-import * as SecureStore from 'expo-secure-store';
+import * as SecureStore from "expo-secure-store";
 
 interface AuthProps {
     authState?: { token:string | null; authenticated:boolean | null };
     onRegister?: (email:string, password:string) => Promise<any>;
-    onLogin?: (email:string, password:string) => Promise<any>;
+    onLogin?: (username:string, password:string) => Promise<any>;
     onLogout?: () => Promise<any>;
 }
 
 const TOKEN_KEY = 'my-jwt';
-export const API_URL = 'http://192.168.1.45:8000/api';
+export const API_URL = 'http://16.170.219.164:8000';
 const AuthContext = createContext<AuthProps>({});
 
 export const useAuth = () => {
@@ -39,21 +39,22 @@ export const AuthProvider = ({children}: any) => {
                 });
             }
         }
-        loadToken();
+        //loadToken();
     }, [])
 
     const register = async (email: string, password: string) => {
         try {
-            return await axios.post(`${API_URL}/users`, {email, password});     
+            return await axios.post(`${API_URL}/api/users`, {email, password});     
         } catch (e) {
-            return { error: true, msg: (e as any).response.data.msg };
+            return { error: true, msg: (e as any) };
             
         }
     };
 
-    const login = async (email: string, password: string) => {
+    const login = async (username: string, password: string) => {
         try {
-            const result = await axios.post(`${API_URL}/authenticate_token`, {email, password});
+            
+            const result = await axios.post(`${API_URL}/authentication_token`, {username, password});
 
             setAuthState({
                 token: result.data.token,
@@ -66,7 +67,11 @@ export const AuthProvider = ({children}: any) => {
 
             return result;
         } catch (e) {
-            return { error: true, msg: (e as any).response.data.msg };
+            setAuthState({
+                token: null,
+                authenticated: false
+            });
+            return { error: true, msg: (e as any) };
         }
     };
 

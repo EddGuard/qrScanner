@@ -3,14 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context'; 
 import * as SplashScreen from 'expo-splash-screen';
 import { API_URL, useAuth } from '../context/AuthContext';
-import { Redirect, router } from 'expo-router';
-import HomeScreen from '.';
+import { Redirect } from 'expo-router';
+import { IconButton } from 'react-native-paper';
 
-const Login = () => {
+const Home = () => {
     const insets = useSafeAreaInsets();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { onLogin, onRegister, authState } = useAuth();
+
 
     useEffect(() => {
         const splashLoad = async () => await SplashScreen.hideAsync();
@@ -18,25 +19,16 @@ const Login = () => {
         splashLoad();
     }, [])
 
-    const login = async () => {
-        const result = await onLogin!(email, password);
-
-        if(result && result.error) {
-            alert(result.msg);
-        }
-
-        console.log(authState?.authenticated);
-
-        return router.navigate({pathname:"/camera",params:{}});
+    const camera = async () => {
+        return (<Redirect href={"/camera"}/>);
     };
 
     return (
         <View style={{paddingTop: insets.top, alignItems: 'center', width: '100%'}}>
             <Image source={require('./bootsplash.png')} style={styles.image}/>
             <View style={{gap:10, width: '60%'}}>
-                <TextInput placeholder='Email' onChangeText={(text: string) => setEmail(text)} value={email} style={styles.input}/>
-                <TextInput placeholder='Password' secureTextEntry={true} onChangeText={(text: string) => setPassword(text)} value={password} style={styles.input}/>
-                <Button onPress={login} title='Sign in'/>
+                
+                <IconButton onPress={camera} icon={"barcode"}/>
             </View>
         </View>
     )
@@ -58,4 +50,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Login;
+export default Home;
